@@ -1,0 +1,7 @@
+services:
+  pagos:
+    build: .
+    container_name: pagos
+    ports:
+      - "${PORT:-8080}:8080"
+    restart: unless-stopped
