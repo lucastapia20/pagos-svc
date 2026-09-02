@@ -50,3 +50,34 @@ Elegimos **GitFlow** porque el curso se desarrolla durante todo el semestre y ca
 | `hotfix/<nombre>` | main | Correccion urgente de un bug en produccion | Si, al fusionarse |
 
 Regla de naming: `feature/descripcion-corta` y `hotfix/descripcion-corta`, todo en minusculas y separado por guiones (por ejemplo `feature/pagina-presentacion`).
+
+## Convenciones y buenas practicas
+
+### Convencion de commits
+
+Formato: `tipo(alcance): descripcion-corta`. Escrito en **minusculas y sin tildes**.
+
+| Tipo | Para que | Ejemplo |
+| --- | --- | --- |
+| `feat` | Nueva funcionalidad | `feat(ui): agregar pie de pagina` |
+| `fix` | Correccion de bug | `fix(home): corregir titulo` |
+| `docs` | Documentacion | `docs: agregar changelog` |
+| `chore` | Tareas / CI | `chore(ci): agregar workflow hola mundo` |
+
+### Naming de ramas
+
+`feature/<feature-name>` y `hotfix/<feature-name>`, en minusculas y con guiones. Ejemplos: `feature/pagina-presentacion`, `hotfix/titulo-pagina`.
+
+### Flujo de merge
+
+- Features y hotfix siempre entran por **pull request**, nunca push directo a `main` o `develop`.
+- Se necesita al menos **1 aprobacion del companero** antes de fusionar.
+- Usar merge commit o squash, y **borrar la rama** despues de fusionar.
+
+### Estrategia de revision
+
+- El autor abre el PR y asigna un revisor.
+- El revisor comenta, aprueba o pide cambios; nunca se fusiona un PR sin revisar.
+- Antes de cada PR: confirmar que `mvn test` pasa y revisar la diff.
+
+> **Nota: repositorio en solitario (EP01).** Este encargo se desarrollo con una sola cuenta de GitHub, por lo que el rol de autor y revisor fue asumido por el mismo integrante. El flujo (crear rama desde su base, abrir PR, revisar el diff, aprobar y fusionar) se cumplio completo en cada cambio para validar las 2 features y el hotfix del indicador IE2.
