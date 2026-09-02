@@ -1,7 +1,7 @@
 # pagos-svc
 
 Microservicio de pagos construido con Spring Boot 3.3, Java 21 y Docker.
-Proyecto base de la asignatura Ingenieria DevOps (DOY0101) para el pipeline del semestre.
+Es el proyecto base de la asignatura Ingeniería DevOps (DOY0101) y la semilla del pipeline que trabajaremos en el semestre.
 
 ## Requisitos
 
@@ -14,7 +14,7 @@ Proyecto base de la asignatura Ingenieria DevOps (DOY0101) para el pipeline del 
 docker compose up --build -d
 ```
 
-- Pagina de presentacion: http://localhost:8080
+- Página de presentación: http://localhost:8080
 - Swagger UI: http://localhost:8080/swagger-ui/index.html
 - Consola H2: http://localhost:8080/h2-console
 - API REST: http://localhost:8080/api/pagos
@@ -26,58 +26,60 @@ mvn test    # unit tests
 mvn verify  # verifica cobertura JaCoCo (exige 100 %)
 ```
 
-## Modelo de ramificacion
+## Modelo de ramificación
 
-### Opciones evaluadas
+### Opciones que evalué
 
-| Modelo | Como funciona | Ideal para |
+| Modelo | Cómo funciona | Ideal para |
 | --- | --- | --- |
-| **GitFlow** | Ramas `main` + `develop` + `feature/` + `hotfix/` | Proyectos con releases planificadas y rama de integracion |
-| **GitHub Flow** | Solo `main` + `feature/` + pull request | Despliegue continuo simple y equipos pequenos |
-| **Trunk-based** | Rama unica (`main`/`trunk`) + ramas de vida corta | Entrega continua, tronco inestable no permitido |
+| **GitFlow** | Ramas `main` + `develop` + `feature/` + `hotfix/` | Proyectos con releases planificadas y una rama de integración |
+| **GitHub Flow** | Solo `main` + `feature/` + pull request | Despliegue continuo simple y equipos pequeños |
+| **Trunk-based** | Una sola rama (`main`/`trunk`) + ramas de vida corta | Entrega continua, tronco inestable no permitido |
 
 ### Modelo elegido: GitFlow
 
-Eligo **GitFlow** porque el curso se desarrolla durante todo el semestre y cada entrega (EP01, EP02, EP03) es un hito estable. La rama `develop` permite integrar las features terminadas sin ensuciar `main`, y la rama `hotfix/` deja corregir un bug en produccion sin interrumpir el trabajo en desarrollo. Ademas, GitFlow separa explicitamente el codigo estable (`main`) del codigo en integracion (`develop`), lo que da trazabilidad clara del codigo frente a lo que se pide en las rubricas del curso. Este repositorio se desarrolla de forma individual, por lo que el flujo se ejecuta por una sola persona, manteniendo igual la disciplina de ramas y pull requests.
+Elegí **GitFlow** porque el curso se desarrolla durante todo el semestre y cada entrega (EP01, EP02, EP03) es un hito estable. La rama `develop` me permite integrar las features terminadas sin ensuciar `main`, y la rama `hotfix/` me deja corregir un bug en producción sin interrumpir el trabajo en desarrollo. Además, GitFlow separa claramente el código estable (`main`) del código en integración (`develop`), lo que da trazabilidad frente a lo que piden las rúbricas del curso.
+
+Este repositorio lo desarrollo de forma individual, así que mantengo la disciplina de ramas y pull requests aunque el flujo lo ejecute una sola persona.
 
 ### Estructura de ramas del proyecto
 
-| Rama | Origen | Proposito | ¿Se borra? |
+| Rama | Origen | Propósito | ¿Se borra? |
 | --- | --- | --- | --- |
-| `main` | inicial | Codigo estable, siempre listo para produccion | No |
-| `develop` | main | Integracion de features terminadas | No |
-| `feature/<nombre>` | develop | Un cambio de funcionalidad | Si, al fusionarse |
-| `hotfix/<nombre>` | main | Correccion urgente de un bug en produccion | Si, al fusionarse |
+| `main` | inicial | Código estable, siempre listo para producción | No |
+| `develop` | main | Integración de features terminadas | No |
+| `feature/<nombre>` | develop | Un cambio de funcionalidad | Sí, al fusionarse |
+| `hotfix/<nombre>` | main | Corrección urgente de un bug en producción | Sí, al fusionarse |
 
-Regla de naming: `feature/descripcion-corta` y `hotfix/descripcion-corta`, todo en minusculas y separado por guiones (por ejemplo `feature/pagina-presentacion`).
+Regla de naming: `feature/descripcion-corta` y `hotfix/descripcion-corta`, todo en minúsculas y separado por guiones (por ejemplo `feature/pagina-presentacion`).
 
-## Convenciones y buenas practicas
+## Convenciones y buenas prácticas
 
-### Convencion de commits
+### Convención de commits
 
-Formato: `tipo(alcance): descripcion-corta`. Escrito en **minusculas y sin tildes**.
+Formato: `tipo(alcance): descripcion-corta`. Escrito en **minúsculas y sin tildes**.
 
-| Tipo | Para que | Ejemplo |
+| Tipo | Para qué | Ejemplo |
 | --- | --- | --- |
 | `feat` | Nueva funcionalidad | `feat(ui): agregar pie de pagina` |
-| `fix` | Correccion de bug | `fix(home): corregir titulo` |
-| `docs` | Documentacion | `docs: agregar changelog` |
+| `fix` | Corrección de bug | `fix(home): corregir titulo` |
+| `docs` | Documentación | `docs: agregar changelog` |
 | `chore` | Tareas / CI | `chore(ci): agregar workflow hola mundo` |
 
 ### Naming de ramas
 
-`feature/<feature-name>` y `hotfix/<feature-name>`, en minusculas y con guiones. Ejemplos: `feature/pagina-presentacion`, `hotfix/titulo-pagina`.
+`feature/<feature-name>` y `hotfix/<feature-name>`, en minúsculas y con guiones. Ejemplos: `feature/pagina-presentacion`, `hotfix/titulo-pagina`.
 
 ### Flujo de merge
 
-- Features y hotfix siempre entran por **pull request**, nunca push directo a `main` o `develop`.
-- Se requiere al menos **1 aprobacion** antes de fusionar; en este repositorio en solitario la aprueba el propio autor tras revisar la diff.
-- Usar merge commit o squash, y **borrar la rama** despues de fusionar.
+- Las features y hotfix siempre entran por **pull request**, nunca con push directo a `main` o `develop`.
+- Se requiere al menos **1 aprobación** antes de fusionar; como este repo es en solitario, la aprueba el propio autor después de revisar la diff.
+- Uso merge commit o squash y **borro la rama** luego de fusionar.
 
-### Estrategia de revision
+### Estrategia de revisión
 
-- El autor abre el PR y revisa el diff antes de fusionar.
-- En equipos, se asigna un revisor que comenta, aprueba o pide cambios; nunca se fusiona un PR sin revisar.
+- El autor abre el PR y revisa la diff antes de fusionar.
+- En un equipo se asigna un revisor que comenta, aprueba o pide cambios; nunca se fusiona un PR sin revisar.
 - Antes de cada PR: confirmar que `mvn test` pasa y revisar la diff.
 
-> **Nota: repositorio en solitario (EP01).** Este encargo se desarrollo con una sola cuenta de GitHub, por lo que el rol de autor y revisor fue asumido por el mismo integrante. El flujo completo (crear rama desde su base, abrir PR, revisar el diff, aprobar y fusionar) se cumplio en cada cambio para validar las 2 features y el hotfix del indicador IE2.
+> **Nota: repositorio en solitario (EP01).** Este encargo se desarrolló con una sola cuenta de GitHub, así que el rol de autor y revisor lo cumple la misma persona. El flujo completo (crear la rama desde su base, abrir el PR, revisar la diff, aprobar y fusionar) se hizo en cada cambio para validar las 2 features y el hotfix del indicador IE2.
